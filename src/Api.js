@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function Api() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
 
   async function getDati() {
     const fetchDati = await fetch(
@@ -9,23 +9,17 @@ export function Api() {
     );
     const result = await fetchDati.json();
 
-    console.log(result);
-
-    setData(result);
+    setData(Object.entries(result));
   }
-
-  useEffect(() => {
-    getDati();
-  }, [data]);
+  getDati();
 
   console.log(data);
-  console.log("ciao");
 
   return (
     <div>
       <ul>
         {data.map((item, index) => (
-          <li key={item + index}>{item} </li>
+          <li key={item + index}>{item}</li>
         ))}
       </ul>
     </div>
